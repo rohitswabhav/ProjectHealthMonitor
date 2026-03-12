@@ -22,6 +22,7 @@ namespace ProjectHealthMonitor.Services
 
         public async Task<Guid> CreateProjectAsync(CreateProjectRequest dto)
         {
+            _logger.LogInformation("Creating new project {ProjectName}", dto.Name);
             var project = ProjectMapper.ToEntity(dto);
 
             await _repository.AddAsync(project);
@@ -32,8 +33,12 @@ namespace ProjectHealthMonitor.Services
             return project.Id;
         }
 
+
+
         public async Task<ProjectHealthResponse> GetHealthAsync(Guid id)
         {
+            _logger.LogInformation("Calculating health for project {ProjectId}", id);
+
             var project = await _repository.GetAsync(id);
 
             if (project == null)
@@ -45,15 +50,17 @@ namespace ProjectHealthMonitor.Services
             {
                 ProjectId = project.Id,
                 Progress = project.ProgressPercentage,
-                BudgetUsedPercentage =
-                    (decimal)((project.ActualCost / project.Budget) * 100),
+                BudgetUsedPercentage = (decimal)((project.ActualCost / project.Budget) * 100),
                 HealthStatus = health
             };
         }
         private string CalculateHealth(Project project)
         {
-            if (project.Budget == 0)
-                throw new Exception("Budget cannot be zero");
+            if (project.Budget <= 0)
+                throw new ArgumentException("Budget must be greater than zero");
+
+            if (project.ProgressPercentage < 0 || project.ProgressPercentage > 100)
+                throw new ArgumentException("Progress must be between 0 and 100");
 
             var costPercentage = (double)(project.ActualCost / project.Budget * 100);
 

@@ -1,4 +1,6 @@
-﻿namespace ProjectHealthMonitor.Middleware
+﻿using ProjectHealthMonitor.Infrastructure;
+
+namespace ProjectHealthMonitor.Middleware
 {
     public class ExceptionMiddleware
     {
@@ -26,12 +28,15 @@
                 context.Response.StatusCode = 500;
                 context.Response.ContentType = "application/json";
 
-                await context.Response.WriteAsJsonAsync(new
+                await context.Response.WriteAsJsonAsync(new ApiResponse<string>
                 {
-                    error = ex.Message,
-                    traceId = context.TraceIdentifier
+                    Success = false,
+                    Message = ex.Message,
+                    Data = null,
+                    TraceId = context.TraceIdentifier
                 });
             }
         }
+
     }
 }

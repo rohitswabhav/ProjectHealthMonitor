@@ -7,8 +7,7 @@ namespace ProjectHealthMonitor.Repositories
 
     public class ProjectRepository : IProjectRepository
     {
-        private readonly ConcurrentDictionary<Guid, Project> _projects
-            = new();
+        private readonly ConcurrentDictionary<Guid, Project> _projects = new();
 
         public Task<Project> AddAsync(Project project)
         {

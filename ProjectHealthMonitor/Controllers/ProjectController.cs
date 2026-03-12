@@ -31,15 +31,18 @@ namespace ProjectHealthMonitor.Controllers
         {
             var result = await _service.GetHealthAsync(id);
 
-            var response = new ApiResponse<ProjectHealthResponse>
+            return Ok(new ApiResponse<ProjectHealthResponse>
             {
                 Success = true,
-                Message = "Project health retrieved successfully",
+                Message = "Project health calculated successfully",
                 Data = result,
                 TraceId = HttpContext.TraceIdentifier
-            };
-
-            return Ok(response);
+            });
+        }
+        [HttpGet("status")]
+        public IActionResult Status()
+        {
+            return Ok("Project Health API Running");
         }
     }
 }
