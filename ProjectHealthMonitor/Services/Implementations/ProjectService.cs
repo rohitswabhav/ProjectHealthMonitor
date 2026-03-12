@@ -1,11 +1,11 @@
 ﻿using ProjectHealthMonitor.DTOs;
 using ProjectHealthMonitor.Mapping;
-using ProjectHealthMonitor.Repositories.Interfaces;
 using ProjectHealthMonitor.Services.Interfaces;
 using ProjectHealthMonitor.Domain;
 using ProjectHealthMonitor.DTOs;
 using Microsoft.Extensions.Logging;
-namespace ProjectHealthMonitor.Services
+using ProjectHealthMonitor.Repositories.Interfaces;
+namespace ProjectHealthMonitor.Services.Implementations
 {
     public class ProjectService : IProjectService
     {
@@ -50,7 +50,7 @@ namespace ProjectHealthMonitor.Services
             {
                 ProjectId = project.Id,
                 Progress = project.ProgressPercentage,
-                BudgetUsedPercentage = (decimal)((project.ActualCost / project.Budget) * 100),
+                BudgetUsedPercentage = project.ActualCost / project.Budget * 100,
                 HealthStatus = health
             };
         }

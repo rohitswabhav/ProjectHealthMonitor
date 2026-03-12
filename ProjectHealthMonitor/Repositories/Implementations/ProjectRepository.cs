@@ -1,7 +1,7 @@
 ﻿using ProjectHealthMonitor.Domain;
 using ProjectHealthMonitor.Repositories.Interfaces;
 using System.Collections.Concurrent;
-namespace ProjectHealthMonitor.Repositories
+namespace ProjectHealthMonitor.Repositories.Implementations
 {
     
 

@@ -2,9 +2,9 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using ProjectHealthMonitor.Middleware;
-using ProjectHealthMonitor.Repositories;
+using ProjectHealthMonitor.Repositories.Implementations;
 using ProjectHealthMonitor.Repositories.Interfaces;
-using ProjectHealthMonitor.Services;
+using ProjectHealthMonitor.Services.Implementations;
 using ProjectHealthMonitor.Services.Interfaces;
 using ProjectHealthMonitor.Validation;
 

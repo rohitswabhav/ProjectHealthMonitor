@@ -17,8 +17,8 @@
                 Budget = dto.Budget,
                 StartDate = dto.StartDate,
                 EndDate = dto.EndDate,
-                ActualCost = 0,
-                ProgressPercentage = 0
+                ActualCost = 50000,
+                ProgressPercentage = 60
             };
         }
     }

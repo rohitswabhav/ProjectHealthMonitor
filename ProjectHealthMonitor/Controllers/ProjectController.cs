@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectHealthMonitor.DTOs;
 using ProjectHealthMonitor.Infrastructure;
+using ProjectHealthMonitor.Services;
 using ProjectHealthMonitor.Services.Interfaces;
 
 namespace ProjectHealthMonitor.Controllers
@@ -27,17 +28,14 @@ namespace ProjectHealthMonitor.Controllers
         }
 
         [HttpGet("{id}/health")]
-        public async Task<IActionResult> GetHealth(Guid id)
+        public async Task<IActionResult> GetProjectHealth(Guid id)
         {
             var result = await _service.GetHealthAsync(id);
 
-            return Ok(new ApiResponse<ProjectHealthResponse>
-            {
-                Success = true,
-                Message = "Project health calculated successfully",
-                Data = result,
-                TraceId = HttpContext.TraceIdentifier
-            });
+            return Ok(ApiResponse<ProjectHealthResponse>.SuccessResponse(
+                result,
+                "Project health retrieved successfully",
+                HttpContext.TraceIdentifier));
         }
         [HttpGet("status")]
         public IActionResult Status()
